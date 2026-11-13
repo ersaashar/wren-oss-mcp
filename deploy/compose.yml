@@ -1,0 +1,32 @@
+# Runtime environment selection.
+#
+#   docker compose -p wren-dev --env-file .env.dev \
+#     -f deploy/compose.yml -f deploy/compose.dev.yml up -d --build
+#
+# Every environment interpolates its own WREN_* values and mounts its own
+# read-only profile registry, so one image digest serves DEV, staging and
+# production without rebuilding.
+
+services:
+  wren-mcp:
+    image: ${WREN_IMAGE:?Set WREN_IMAGE (local tag for DEV, registry digest elsewhere)}
+    env_file:
+      - ../.env.${WREN_ENV:?Set WREN_ENV (dev, staging, prod)}
+    environment:
+      WREN_PROFILE: ${WREN_PROFILE:?Set WREN_PROFILE (jaffle-dev, clickhouse-staging, clickhouse-prod)}
+      WREN_HOME: /run/wren
+      WREN_PROJECT_HOME: /app/project
+    volumes:
+      - type: bind
+        source: ../config/profiles/${WREN_ENV:?Set WREN_ENV (dev, staging, prod)}.yml
+        target: /run/wren/profiles.yml
+        read_only: true
+        bind:
+          create_host_path: false
+      - wren_memory:/app/project/.wren
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+volumes:
+  wren_memory:

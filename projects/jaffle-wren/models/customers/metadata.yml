@@ -1,0 +1,63 @@
+name: customers
+table_reference:
+  catalog: jaffle_shop
+  schema: main
+  table: customers
+primary_key: customer_id
+cached: false
+properties:
+  description: >-
+    One row per customer with basic profile fields plus order-derived facts:
+    first and most recent order date, order count, and lifetime value.
+columns:
+  - name: customer_id
+    type: INT
+    is_calculated: false
+    not_null: true
+    is_primary_key: true
+    properties:
+      description: Unique identifier for a customer.
+  - name: first_name
+    type: TEXT
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Customer's first name. PII.
+  - name: last_name
+    type: TEXT
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Customer's last name. PII.
+  - name: first_order
+    type: DATE
+    is_calculated: false
+    not_null: false
+    properties:
+      description: >-
+        Date (UTC) of the customer's first order. NULL when the customer has
+        placed no orders.
+  - name: most_recent_order
+    type: DATE
+    is_calculated: false
+    not_null: false
+    properties:
+      description: >-
+        Date (UTC) of the customer's most recent order. NULL when the customer
+        has placed no orders.
+  - name: number_of_orders
+    type: BIGINT
+    is_calculated: false
+    not_null: false
+    properties:
+      description: >-
+        Count of orders placed by the customer. NULL, not 0, when the customer
+        has placed no orders.
+  - name: customer_lifetime_value
+    type: DOUBLE
+    is_calculated: false
+    not_null: false
+    properties:
+      description: >-
+        Total value (AUD) of all payments across the customer's orders. NULL
+        when the customer has no orders or no payments recorded.

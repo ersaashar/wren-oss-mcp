@@ -1,0 +1,11 @@
+active: clickhouse-prod
+
+profiles:
+  clickhouse-prod:
+    datasource: clickhouse
+    host: ${CH_HOST}
+    port: "${CH_PORT}"
+    database: ${CH_DATABASE}
+    user: ${CH_USER}
+    password: ${CH_PASSWORD}
+    secure: true

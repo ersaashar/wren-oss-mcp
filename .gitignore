@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Wren build/runtime artifacts
+target/
+.wren/
+
+# DuckDB WAL sidecar
+*.duckdb.wal
+
+# Real environment files (examples are committed)
+.env
+.env.*
+!.env.*.example
+
+# OS
+.DS_Store
+Thumbs.db

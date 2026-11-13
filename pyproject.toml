@@ -1,0 +1,16 @@
+[project]
+name = "wren-oss-mcp"
+version = "0.1.0"
+description = "Standalone Wren AI OSS MCP service"
+requires-python = ">=3.12,<3.13"
+readme = "README.md"
+dependencies = [
+    "wrenai[mcp,clickhouse,memory-onnx]==0.17.1",
+    "mcp==1.30.0",
+]
+
+[tool.uv]
+package = false
+constraint-dependencies = [
+    "wren-core-py==0.8.2",
+]

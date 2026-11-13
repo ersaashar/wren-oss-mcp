@@ -1,0 +1,74 @@
+name: orders
+table_reference:
+  catalog: jaffle_shop
+  schema: main
+  table: orders
+primary_key: order_id
+cached: false
+properties:
+  description: >-
+    One row per order with the order's status and payment amounts split by
+    payment method, plus the order total.
+columns:
+  - name: order_id
+    type: INT
+    is_calculated: false
+    not_null: true
+    is_primary_key: true
+    properties:
+      description: Unique identifier for an order.
+  - name: customer_id
+    type: INT
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Foreign key to customers.customer_id. Every order belongs to an existing customer.
+  - name: order_date
+    type: DATE
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Date (UTC) that the order was placed.
+  - name: status
+    type: TEXT
+    is_calculated: false
+    not_null: true
+    properties:
+      description: >-
+        Order lifecycle status. One of placed (not yet left the warehouse),
+        shipped (in transit to the customer), completed (received by the
+        customer), return_pending (return requested, not yet back at the
+        warehouse), returned (returned and received at the warehouse).
+  - name: credit_card_amount
+    type: DOUBLE
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Amount of the order (AUD) paid by credit card. 0 when that method was not used.
+  - name: coupon_amount
+    type: DOUBLE
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Amount of the order (AUD) paid by coupon. 0 when that method was not used.
+  - name: bank_transfer_amount
+    type: DOUBLE
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Amount of the order (AUD) paid by bank transfer. 0 when that method was not used.
+  - name: gift_card_amount
+    type: DOUBLE
+    is_calculated: false
+    not_null: true
+    properties:
+      description: Amount of the order (AUD) paid by gift card. 0 when that method was not used.
+  - name: amount
+    type: DOUBLE
+    is_calculated: false
+    not_null: true
+    properties:
+      description: >-
+        Total amount (AUD) of the order. Equals the sum of
+        credit_card_amount, coupon_amount, bank_transfer_amount and
+        gift_card_amount.

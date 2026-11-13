@@ -1,0 +1,7 @@
+active: jaffle-dev
+
+profiles:
+  jaffle-dev:
+    datasource: duckdb
+    url: /app/data
+    format: duckdb

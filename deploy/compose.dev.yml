@@ -1,0 +1,11 @@
+# DEV overlay: build the Jaffle image locally and publish the endpoint on the
+# loopback interface only.
+services:
+  wren-mcp:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        WREN_PROJECT: jaffle-wren
+    ports:
+      - "127.0.0.1:${WREN_PORT:-8080}:8080"

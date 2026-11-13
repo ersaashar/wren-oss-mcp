@@ -1,0 +1,23 @@
+# Never ship Git history or host Python state into an image.
+.git/
+.venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+
+# Compiled artifacts and derived memory are rebuilt inside the image.
+**/target/
+**/.wren/
+
+# Real and placeholder environment files stay on the host.
+.env
+.env.*
+**/*.duckdb.wal
+
+# Keep the fixture database and its license in the image.
+!data/jaffle_shop.duckdb
+!data/JAFFLE_LICENSE
+
+# Documentation is not a runtime input.
+docs/
+README.md
